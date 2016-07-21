@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
+    <entity name="DiaryEntry" syncable="YES">
+        <attribute name="dateCreated" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="entry" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="DiaryEntry" positionX="-45" positionY="0" width="128" height="30"/>
+    </elements>
+</model>

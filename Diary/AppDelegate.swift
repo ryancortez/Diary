@@ -7,15 +7,33 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var managedObjectContext: NSManagedObjectContext?
 
+    func setupAppearence() {
+        
+        // Make the App's UI have white text and a blue background 
+        UINavigationBar.appearance().barTintColor = UIColor.blueColor()
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+    }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        setupAppearence()
+        
+        // Setup CoreData and pass the NSManagedObjectContext to the first ViewController
+        let coreDataManager = CoreDataManager(xcDataModelFileName: "Model", storeType: .SQLite)
+        let navigationController = self.window?.rootViewController as! UINavigationController
+        let masterViewController = navigationController.viewControllers.first as! DiaryEntryListViewController
+        masterViewController.coreDataManager = coreDataManager
+        masterViewController.managedObjectContext = coreDataManager.managedObjectContext
+        
         return true
     }
 
@@ -40,7 +58,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 
