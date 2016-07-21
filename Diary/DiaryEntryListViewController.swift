@@ -11,24 +11,19 @@ import CoreData
 
 class DiaryEntryListViewController: UITableViewController, NSFetchedResultsControllerDelegate {
  
-    
     // CoreDataManager is a helper class that sets up CoreData
     var coreDataManager: CoreDataManager!
     var managedObjectContext: NSManagedObjectContext!
     var fetchResultsController: NSFetchedResultsController!
-    
     var entries = [AnyObject]()
     
-    
     // MARK: - View Controller Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initFetchResultsController()
     }
     
     // MARK: - Core Data
-    
     func initFetchResultsController() {
         let entityName = "DiaryEntry"
         let fetchRequest = NSFetchRequest(entityName: entityName)
@@ -54,28 +49,7 @@ class DiaryEntryListViewController: UITableViewController, NSFetchedResultsContr
         entries = fetchedObjects
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        
-        switch(type) {
-            
-        case .Insert:
-            // Animate the inserting of new rows
-            self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Automatic)
-            break
-            
-        case .Delete:
-            break
-            
-        case .Update:
-            break
-            
-        case .Move:
-            break
-            
-        }
-    }
-
-    // MARK: - TableviewDataSource
+    // MARK: - TableViewDataSource
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sections = self.fetchResultsController.sections else {
@@ -99,7 +73,23 @@ class DiaryEntryListViewController: UITableViewController, NSFetchedResultsContr
         return diaryEnteryTableViewCell
     }
     
-    // MARK: - TableviewDelegate
+    // MARK: - TableViewDelegate
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        
+        switch(type) {
+        case .Insert:
+            // Animate the inserting of new rows
+            self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Automatic)
+            break
+        case .Delete:
+            break
+        case .Update:
+            break
+        case .Move:
+            break
+        }
+    }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -154,7 +144,6 @@ class DiaryEntryListViewController: UITableViewController, NSFetchedResultsContr
             print("Unable to save new diary entry from addButtonPress")
             return
         }
-        
     }
     
     // MARK: - Segues
@@ -170,4 +159,3 @@ class DiaryEntryListViewController: UITableViewController, NSFetchedResultsContr
         }
     }
 }
-
